@@ -1,0 +1,10 @@
+
+.idea/
+
+*.iml
+
+.DS_Store
+
+*.class
+
+*.kotlin_module
