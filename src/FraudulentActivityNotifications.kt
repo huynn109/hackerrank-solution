@@ -2,43 +2,31 @@ import java.util.*
 
 // Complete the activityNotifications function below.
 fun activityNotifications(expenditure: Array<Int>, d: Int): Int {
+    val countArr = IntArray(201) { 0 }
     var notificationCount = 0
+
+    for (i in 0 until d) {
+        countArr[expenditure[i]]++
+    }
+
     for (i in d until expenditure.size) {
-        val trail = countingSort(expenditure.slice(IntRange(i - d, i - 1)))
-        val median = if (d % 2 == 0) {
-            trail[trail.size / 2 - 1] + trail[trail.size / 2]
-        } else
-            trail[trail.size / 2] * 2
-        if (median <= expenditure[i]) notificationCount++
+        val median = getMedianX2(countArr, d)
+        if (expenditure[i] >= median) notificationCount++
+        if (i == expenditure.size - 1) break
+        countArr[expenditure[i - d]]--
+        countArr[expenditure[i]]++
     }
     return notificationCount
 }
 
-
-fun countingSort(ar: List<Int>): List<Int> {
-    val outPut = IntArray(ar.size)
-    val count = IntArray(maximum(ar) + 1) { 0 }
-    for (i in ar.indices) {
-        count[ar[i]]++
+fun getMedianX2(countArray: IntArray, d: Int): Int {
+    var sum = 0
+    for (i in countArray.indices) {
+        sum += countArray[i]
+        if ((sum * 2) == d) return i * 2 + 1
+        if ((sum * 2) > d) return i * 2
     }
-    for (i in 1 until count.size){
-        count[i] += count[i - 1]
-    }
-    for (i in ar.indices){
-        outPut[count[ar[i]] - 1] = ar[i]
-        --count[ar[i]];
-    }
-    return outPut.toList()
-}
-
-fun maximum(arr: List<Int>): Int {
-    var max: Int = 0;
-    for (value in arr) {
-        if (value > max) {
-            max = value;
-        }
-    }
-    return max;
+    return 0
 }
 
 fun main(args: Array<String>) {
