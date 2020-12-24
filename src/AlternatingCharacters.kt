@@ -2,7 +2,12 @@ import java.util.*
 
 // Complete the alternatingCharacters function below.
 fun alternatingCharacters(s: String): Int {
-    return 0
+    var count = 0
+    for (i in 0 until s.lastIndex){
+        if (s[i] == s[i + 1])
+            count++
+    }
+    return count
 }
 
 fun main(args: Array<String>) {
