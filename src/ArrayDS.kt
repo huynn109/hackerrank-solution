@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
 
     val arrCount = scan.nextLine().trim().toInt()
 
-    val arr = scan.nextLine().split(" ").map{ it.trim().toInt() }.toTypedArray()
+    val arr = scan.nextLine().split(" ").map { it.trim().toInt() }.toTypedArray()
 
     val res = reverseArray(arr)
 
