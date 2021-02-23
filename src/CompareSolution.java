@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Scanner;
 
 class ComparatorF{

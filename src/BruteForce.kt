@@ -1,8 +1,21 @@
 import java.util.*
+import kotlin.collections.HashMap
 
 // Complete the bruteForce function below.
-fun bruteForce(sum: Int, arr: Array<Int>): Int {
-    
+fun bruteForce(sum: Int, arr1: MutableList<Int>, arr2: Array<Int>): Int? {
+    var a = mapOf<String, String>()
+    val l1 = arr1.size
+    val l2 = arr2.size
+    val map = mutableMapOf<Int, Int>()
+    if (l1 < l2){
+        for (i in arr1.indices){
+            map[arr1[i]] = arr1[i]
+        }
+    }
+    for (i in arr2.indices){
+        if (map.containsKey(arr2[i]))
+            return map[arr2[i]]
+    }
     return 0
 }
 
