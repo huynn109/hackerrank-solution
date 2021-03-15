@@ -19,17 +19,29 @@ import kotlin.text.*
 
 // Complete the countTriplets function below.
 fun countTriplets(arr: Array<Long>, r: Long): Long {
-    val arrTmp = IntArray(arr[arr.size - 1].toInt() + 1)
-    var result = 1
-    arr.forEach {
-        arrTmp[it.toInt()]++
+    val mapTmp = mutableMapOf<Long, Int>()
+    for (i in arr.indices) {
+        if (mapTmp.contains(arr[i])) mapTmp[arr[i]] = (mapTmp[arr[i]] ?: 0) + 1
+        else mapTmp[arr[i]] = 1
     }
-    var tmp = 0
-    arrTmp.forEach {
-        if (it == 0 || it == 1) tmp++
-        result *= tmp
+    var result = 0
+    for (i in 0 until mapTmp.keys.size - 1) {
+        var mul = 0
+        if (arr[i] >= r) {
+            val tmpMin = arr[i] / r
+            val tmpMax = arr[i] * r
+            val min = mapTmp[tmpMin] ?: 1
+            val max = mapTmp[tmpMax] ?: 1
+            val current = mapTmp[arr[i]] ?: 1
+            mul = min * current * max
+        }
+        result += mul
     }
     return result.toLong()
+}
+
+fun countTriplets1(arr: Array<Long>, r: Long): Long {
+    return 0L
 }
 
 fun main(args: Array<String>) {
