@@ -15,7 +15,7 @@ f(2) -> 2
 f(3) -> 4
 f(4) -> f(3) + f(2) + f(1) = 1 + 2 + 4 = 7
 f(5) -> f(4) + f(3) + f(2)= 7 + 4 + 2= 13
-=> f(n) -> (n - 1) + f(n - 1)
+=> f(n) -> f(n - 1) + f(n - 2) + f(n - 3)
  */
 private var cache = mutableMapOf<Int, Int>()
 fun stepPerms(n: Int): Int {
