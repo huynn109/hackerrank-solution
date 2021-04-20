@@ -1,21 +1,4 @@
-import java.io.*
-import java.math.*
-import java.security.*
-import java.text.*
-import java.util.*
-import java.util.concurrent.*
-import java.util.function.*
-import java.util.regex.*
-import java.util.stream.*
 import kotlin.collections.*
-import kotlin.comparisons.*
-import kotlin.io.*
-import kotlin.jvm.*
-import kotlin.jvm.functions.*
-import kotlin.jvm.internal.*
-import kotlin.ranges.*
-import kotlin.sequences.*
-import kotlin.text.*
 
 // Complete the countTriplets function below.
 fun countTriplets(arr: Array<Long>, r: Long): Long {
@@ -25,7 +8,7 @@ fun countTriplets(arr: Array<Long>, r: Long): Long {
         else mapTmp[arr[i]] = 1
     }
     var result = 0
-    for (i in 0 until mapTmp.keys.size - 1) {
+    for (i in 0 until mapTmp.keys.size) {
         var mul = 0
         if (arr[i] >= r) {
             val tmpMin = arr[i] / r
@@ -41,7 +24,26 @@ fun countTriplets(arr: Array<Long>, r: Long): Long {
 }
 
 fun countTriplets1(arr: Array<Long>, r: Long): Long {
-    return 0L
+    val mapRight = mutableMapOf<Long?, Long>()
+    val mapLeft = mutableMapOf<Long?, Long>()
+    var result = 0L
+    for (i in arr.indices) {
+        if (mapRight.contains(arr[i])) mapRight[arr[i]] = (mapRight[arr[i]] ?: 0) + 1
+        else mapRight[arr[i]] = 1
+    }
+    for (i in arr.indices) {
+        var c1: Long = 0
+        var c3: Long = 0
+        val mid = arr[i]
+        mapRight[mid] = (mapRight[mid] ?: 0) - 1
+        if (mapLeft.containsKey(mid / r) && ((mid % r) == 0L))
+            c1 = mapLeft[mid / r]!!
+        if (mapRight.containsKey(mid * r))
+            c3 = mapRight[mid * r]!!
+        result += c1 * c3
+        mapLeft[mid] = (mapLeft[mid] ?: 0) + 1
+    }
+    return result
 }
 
 fun main(args: Array<String>) {
@@ -53,7 +55,7 @@ fun main(args: Array<String>) {
 
     val arr = readLine()!!.trimEnd().split(" ").map { it.toLong() }.toTypedArray()
 
-    val ans = countTriplets(arr, r)
+    val ans = countTriplets1(arr, r)
 
     println(ans)
 }
