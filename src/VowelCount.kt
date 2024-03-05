@@ -1,4 +1,3 @@
-import kotlin.test.assertEquals
 
 fun getCount(str: String): Int {
     val vowel = "aoeui";
